@@ -1,6 +1,6 @@
 const { body } = require("express-validator");
 const User = require("../../models").user;
-
+const Order = require("../../models").Order
 const validator = {
     loginValidator() {
         return [
@@ -21,6 +21,14 @@ const validator = {
             body("last_name").notEmpty().withMessage("نام الزامی است"),
             body("address").optional(),
             body("password").notEmpty().withMessage("رمز عبور الزامی است.")
+        ]
+    },
+
+    createOrderValidation(){
+        return [
+            body("product_name").notEmpty().withMessage("نام کالا الزامی است"),
+            body("quantity").notEmpty().withMessage("تعداد کالا الزامی است"),
+            body("price_per_unit").notEmpty().withMessage("قیمت کالا الزامی است"),
         ]
     }
 

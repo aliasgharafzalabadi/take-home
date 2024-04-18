@@ -1,6 +1,5 @@
 const User = require("../models").User;
 const bcrypt = require("bcryptjs");
-const { includes } = require("core-js/core/array");
 const jwt = require("jsonwebtoken");
 
 class UserController {
@@ -88,12 +87,13 @@ class UserController {
                 address: req.body.address,
             }
 
-            const data = await User.create(userData)
+            const data = await User.create(userData);
+            return res.status(201).json({ message: "با موفقیت وارد شدید", user: data, token: generateAccessToken(req.body.username, data.id), });
         } catch (err) {
             return res.status(500).send({ message: err.message });
         }
 
-        return res.status(201).json({ message: "با موفقیت وارد شدید", user: data, token: generateAccessToken(req.body.username, user.id), });
+        
 
     }
 }
