@@ -1,5 +1,5 @@
 const { body } = require("express-validator");
-const User = require("../../models").user;
+const User = require("../../models").User;
 const Order = require("../../models").Order
 const validator = {
     loginValidator() {
@@ -12,8 +12,8 @@ const validator = {
     singupValidator() {
         return [
             body("email").notEmpty().isEmail().withMessage(" ایمیل الزامی است.").custom( async (value) =>{
-                const user  = await User.findAll({where : {email : value}});
-                if (user.length) {
+                const user  = await User.findOne({where : {email : value}});
+                if (user && user.length) {
 					throw new Error("email  تکراری است.");
 				}
             }),

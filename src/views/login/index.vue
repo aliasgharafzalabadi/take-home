@@ -50,14 +50,20 @@ const moveToSingup = () => {
     router.push("/singup")
 }
 
-const handelLogin =async() =>{
+const handelLogin = async() =>{
     try{
+        isLoading.value = true;
         const response = await httpService().post("/login", form.value);
-        console.log(response);
-    }
-    catch{
+        store.dispatch("User", response);
+
+        router.push("/home")
 
     }
+    catch {
+
+    }
+
+    isLoading.value = false
 }
 </script>
 

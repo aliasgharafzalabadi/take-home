@@ -2,6 +2,7 @@ import { createWebHistory, createRouter } from "vue-router";
 import HomePage from "../views/home";
 import LoginPage from "../views/login";
 import SingUp from "../views/singup";
+import store from "@/store";
 
 
 
@@ -40,17 +41,17 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  //const userToken = store.getters.userToken;
+  const userToken = store.state?.user?.token;
 
-  // if (!userToken && to.path != "/login" && to.path != "/singup") {
-  //   next("/login");
-  //   return;
-  // }
+  if (!userToken && to.path != "/login" && to.path != "/singup") {
+    next("/login");
+    return;
+  }
 
-  // if (userToken && to.path == "/login") {
-  //   next(from.path);
-  //   return;
-  // }
+  if (userToken && to.path == "/login") {
+    next(from.path);
+    return;
+  }
 
   next();
 });

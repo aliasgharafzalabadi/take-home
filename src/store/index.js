@@ -14,7 +14,7 @@ const store = createStore({
     actions: {
         User({ commit }, _user) {
             localStorage.setItem("user", JSON.stringify( _user));
-            commit("SET_USER", {});
+            commit("SET_USER",  _user);
         },
         logout({ commit }) {
             localStorage.setItem("user", {});

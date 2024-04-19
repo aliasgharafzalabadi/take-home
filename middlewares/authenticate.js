@@ -1,6 +1,8 @@
 const jwt = require("jsonwebtoken");
 function authenticate(req, res, next) {
-    if (["/login", "/signup"].includes(req.path)) return next();
+    if (["/login"].includes(req.path)) return next();
+    if (["/singup"].includes(req.path)) return next();
+
 
     const authHeader = req.headers["authorization"];
     const token = authHeader && authHeader.split(" ")[1];

@@ -19,7 +19,7 @@ app.use("/public", express.static("public"));
 app.use('/api',authenticate , routers);
 
 app.listen(3000, async()=>{
-    console.log("up")
+    
 })
 
 const compiler = webpack(webpackConfig);

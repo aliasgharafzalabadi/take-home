@@ -81,7 +81,6 @@ class UserController {
             return res.status(401).json({ message: "رمز عبور صحیح نیست." });
 
         delete user.password;
-        console.log(user)
         return res.json(Object.assign({}, user, { token:  generateAccessToken(req.body.username, user.id) }));
 
     }
@@ -98,7 +97,20 @@ class UserController {
             }
 
             const data = await User.create(userData);
-            return res.status(201).json({ message: "با موفقیت وارد شدید", user: data, token: generateAccessToken(req.body.username, data.id), });
+
+            let user = await User.findOne({
+                attributes: ["id", "firstName", "lastName", "email", "password", "address"],
+                include: [
+                    {
+                        association: 'Role',
+                        attributes: ['name']
+                    },
+                ],
+                raw: true,
+                where: { id: data.id }
+            });
+           
+           return res.json(Object.assign({}, user, { token:  generateAccessToken(req.body.username, user.id) } , {message: "با موفقیت وارد شدید"}));
         } catch (err) {
             return res.status(500).send({ message: err.message });
         }

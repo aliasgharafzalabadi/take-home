@@ -2,7 +2,8 @@
   <router-view />
 </template>
 
-<script>
-
+<script setup>
+import store from "@/store";
+store.state.user = localStorage.getItem('user') || null;
 
 </script>
