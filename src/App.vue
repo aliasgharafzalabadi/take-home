@@ -4,6 +4,6 @@
 
 <script setup>
 import store from "@/store";
-store.state.user = localStorage.getItem('user') || null;
+store.dispatch("User" , JSON.parse(localStorage.getItem('user')) || null)
 
 </script>

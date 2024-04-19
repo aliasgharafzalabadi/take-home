@@ -41,7 +41,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const userToken = store.state?.user?.token;
+  const userToken = store.state?.user?.token || null;
 
   if (!userToken && to.path != "/login" && to.path != "/singup") {
     next("/login");
