@@ -16,7 +16,7 @@ app.use(cors());
 
 app.use("/public", express.static("public"));
 
-app.use('api',authenticate , routers);
+app.use('/api',authenticate , routers);
 
 app.listen(3000, async()=>{
     console.log("up")

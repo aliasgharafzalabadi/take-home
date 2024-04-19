@@ -1,4 +1,4 @@
-const Order = requires("../models").Order;
+const Order = require("../models").Order;
 const jsPDF = require("jspdf");
 
 class OrderController {
@@ -92,3 +92,5 @@ class OrderController {
         }
     }
 }
+
+module.exports = new OrderController();

@@ -1,0 +1,36 @@
+.login {
+    margin: auto;
+    margin-top: 75px;
+    width: 300px;
+    width: 550px;
+    height: 450px;
+    background: linear-gradient(to bottom, #42bf87, #004d2a);
+    border-radius: 25px;
+    align-items: center;
+    font-family: 'IRANSansXFaNum', sans-serif;
+}
+
+.input {
+    width: 200px;
+    border-radius: 20px;
+    border: none;
+}
+
+.input:focus {
+    border: none;
+    outline: none;
+}
+
+.btn {
+    width: 200px;
+    border: none;
+    background-color: #166ec5;
+    border-radius: 20px;
+    text-align: center;
+    align-items: center;
+}
+
+.btn:hover {
+    color: white;
+    background-color: #011a33 !important;
+}

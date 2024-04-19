@@ -2,11 +2,13 @@ const User = require("../models").User;
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
+function generateAccessToken(username, id) {
+    return jwt.sign({ username, user_id: id }, 'hello world!', { expiresIn: "172800s" });
+}
+
 class UserController {
 
-    generateAccessToken(username, id) {
-        return jwt.sign({ username, user_id: id }, process.env.TOKEN_SECRET, { expiresIn: "172800s" });
-    }
+    
 
     async updateUser(req, res) {
         try {
@@ -59,8 +61,14 @@ class UserController {
     async login(req, res) {
         let user = await User.findOne({
             attributes: ["id", "firstName", "lastName", "email", "password", "address"],
+            include: [
+                {
+                    association: 'Role',
+                    attributes: ['name']
+                },
+            ],
             raw: true,
-            where: { username: req.body.username }
+            where: { email: req.body.email }
         });
 
         if (!user)
@@ -73,7 +81,8 @@ class UserController {
             return res.status(401).json({ message: "رمز عبور صحیح نیست." });
 
         delete user.password;
-        return res.json(Object.assign({}, user, { token: generateAccessToken(req.body.username, user.id) }));
+        console.log(user)
+        return res.json(Object.assign({}, user, { token:  generateAccessToken(req.body.username, user.id) }));
 
     }
 
@@ -85,6 +94,7 @@ class UserController {
                 email: req.body.email,
                 password: bcrypt.hashSync(req.body.password, 8),
                 address: req.body.address,
+                roleID : 1,
             }
 
             const data = await User.create(userData);
@@ -98,4 +108,4 @@ class UserController {
     }
 }
 
-module.exports = UserController;
+module.exports = new UserController();
