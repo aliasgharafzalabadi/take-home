@@ -5,7 +5,7 @@ class OrderController {
     async getOrders(req , res){
         try{
             const orders = await Order.findAll({
-                where : {userID : req.user.id}
+                where : {userID : req.user.user_id}
             })
 
             res.status(201).json(orders)
@@ -21,7 +21,7 @@ class OrderController {
                 productName : req.body.product_name,
                 quantity : req.body.quantity,
                 pricePerUnit : req.body.price_per_unit,
-                userID : req.user.id,
+                userID : req.user.user_id,
             }
 
            await Order.create(data);
@@ -68,7 +68,7 @@ class OrderController {
         try{
             const doc = new jsPDF();
             const orders = await Order.findAll({
-                where : {userID : req.user.id}
+                where : {userID : req.user.user_id}
             });
 
             doc.text(50, 10 , req.user.firstName + " " + req.user.lastName + " : ")

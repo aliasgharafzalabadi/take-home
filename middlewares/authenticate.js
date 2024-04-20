@@ -9,7 +9,7 @@ function authenticate(req, res, next) {
 
     if (token == null) return res.status(401).json({message: "ابتدا باید وارد شوید."});
 
-    jwt.verify(token,process.env.TOKEN_SECRET , (err, user)=>{
+    jwt.verify(token,'hello world!' , (err, user)=>{
         
         if(err) return res.status(401).json({message : "ورور نا معتیر لطفا ابتدا وارد شوید"})
 

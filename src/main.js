@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import router from "./router";
 import 'bootstrap/dist/css/bootstrap.css'
 import "vue-toastification/dist/index.css";
+import "bootstrap-icons/font/bootstrap-icons.css"
 import Toast from "vue-toastification";
 import App from './App.vue'
 
